@@ -1,4 +1,4 @@
-<img src="./Images/Icons/Coder Dojo Ennis - Green Square.svg" style="max-width:200px;margin: 0 auto 2rem;" />
+<img src="./Images/Icons/Coder Dojo Ennis - Green Square.svg" style="max-width:20rem;margin: 0 auto 2rem;" />
 
 # Godot 3rd Person Game - Claire Scare!
 *[Russ Painter](https://www.linkedin.com/in/geekymonkey/) @ [CoderDojo Ennis](https://coderdojoennis.com)*
