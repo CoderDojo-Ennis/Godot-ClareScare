@@ -1,9 +1,11 @@
-<img src="./Images/Icons/Coder Dojo Ennis - Green Square.svg" style="max-width:20rem;margin: 0 auto 2rem;" />
+<img src="./Images/Icons/Coder Dojo Ennis - Green Square.svg" width="200" />
+<img src="./Docs/Screenshots/Claire.webp" width="200" />
 
+#
 # Godot 3rd Person Game - Claire Scare!
 *[Russ Painter](https://www.linkedin.com/in/geekymonkey/) @ [CoderDojo Ennis](https://coderdojoennis.com)*
 
-This is an example [GODOT](https://godotengine.org/) v4 project with the following features:
+This is an example [GODOT](https://godotengine.org/) v4.5 project with the following features:
 
 * 3D Character exported from Mixamo along with a set of animations
 * Simple 3rd person character controller
@@ -37,3 +39,9 @@ by [Bluefever Software](https://www.youtube.com/@BlueFeverSoft)
 * Punch attack animation
 * Character eye blink animation
 * VSCode setup for Godot scripting
+
+## Potential Enhancements
+
+* The initial idea was to make a Halloween themed game with a spooky environment and scary monsters.
+* Sound FX and background music
+* More animations - crouch, pain, die, etc.
