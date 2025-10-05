@@ -1,5 +1,4 @@
-<img src="./Images/Icons/Coder Dojo Ennis - Green Square.svg" width="200" />
-<img src="./Docs/Screenshots/Claire.webp" width="200" />
+<img src="./Images/Icons/Coder Dojo Ennis - Green Square.svg" width="200" /> <img src="./Docs/Screenshots/Claire.webp" width="200" />
 
 #
 # Godot 3rd Person Game - Claire Scare!
