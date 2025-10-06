@@ -44,3 +44,4 @@ by [Bluefever Software](https://www.youtube.com/@BlueFeverSoft)
 * The initial idea was to make a Halloween themed game with a spooky environment and scary monsters.
 * Sound FX and background music
 * More animations - crouch, pain, die, etc.
+* Code cleanup - Refactor input and movement into separate systems
