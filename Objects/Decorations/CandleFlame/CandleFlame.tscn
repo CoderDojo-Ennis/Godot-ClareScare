@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=4 uid="uid://uqvheb1wthfl"]
+
+[ext_resource type="Script" uid="uid://cfc64h4x83ney" path="res://Objects/Decorations/CandleFlame/candle_flame.gd" id="1_gcg6d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_156fg"]
+resource_name = "blinn4"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 0.8)
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_f8gls"]
+resource_name = "FX_Candle_Flame"
+_surfaces = [{
+"aabb": AABB(-0.001814812, -0.004524364, -0.001814812, 0.003629624, 0.011095388, 0.003629624),
+"attribute_data": PackedByteArray("bM7BPvuHeT+gqsI+And4P6Cqwj4Cd3g/bM7BPvuHeT818sA+And4P6Cqwj4Cd3g/bM7BPvuHeT818sA+And4PzXywD4Cd3g/bM7BPvuHeT+gqsI+And4PzXywD4Cd3g/TtHBPrFVcz818sA+And4P6Cqwj4Cd3g/oKrCPgJ3eD+gqsI+And4P07RwT6xVXM/TtHBPrFVcz+gqsI+And4PzXywD4Cd3g/TtHBPrFVcz818sA+And4PzXywD4Cd3g/ajrBPsYBdj9qOsE+xgF2P2p5wj7GAXY/annCPsYBdj9qOsE+xgF2P2p5wj7GAXY/ajrBPsYBdj9qecI+xgF2P2o6wT7GAXY/annCPsYBdj9qecI+xgF2P2p5wj7GAXY/annCPsYBdj9qOsE+xgF2P2o6wT7GAXY/ajrBPsYBdj8="),
+"format": 34359742487,
+"index_count": 48,
+"index_data": PackedByteArray("GAAWABcAGQAWABgAGgAQABsADwAQABoAHAATABQAHQATABwADgAeAA0AHwAeAA4AAAABAAIAAwAEAAUABgAHAAgACQAKAAsADAAgACEAIgAjABEAEgAkACUAFQAmACcA"),
+"lods": [0.0008637308, PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcA")],
+"material": SubResource("StandardMaterial3D_156fg"),
+"name": "blinn4",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("AAAAAB5BlLsAAAAA/N7tOupgK7v83u26/N7tuupgK7v83u26AAAAAB5BlLsAAAAA/N7tOupgK7v83u06/N7tOupgK7v83u26AAAAAB5BlLsAAAAA/N7tuupgK7v83u06/N7tOupgK7v83u06AAAAAB5BlLsAAAAA/N7tuupgK7v83u26/N7tuupgK7v83u065u2st71R1ztYRMe3/N7tuupgK7v83u06/N7tuupgK7v83u26/N7tuupgK7v83u26/N7tOupgK7v83u265u2st71R1ztYRMe35u2st71R1ztYRMe3/N7tOupgK7v83u26/N7tOupgK7v83u065u2st71R1ztYRMe3/N7tOupgK7v83u06/N7tuupgK7v83u06+X2dugMf6jqn3586ShS7OgMf6jqn35869X2dugEf6jqXsri6SRS7OgEf6jqXsri6ShS7OgMf6jqn3586SRS7OgEf6jqXsri6+X2dugMf6jqn35869X2dugEf6jqXsri6+X2dugMf6jqn35869X2dugEf6jqXsri69X2dugEf6jqXsri6SRS7OgEf6jqXsri6SRS7OgEf6jqXsri6ShS7OgMf6jqn3586ShS7OgMf6jqn3586+X2dugMf6jqn3586n8EAAP///7+fwQAA////v5/BAAD///+/n8GfQf////+fwZ9B/////5/Bn0H//////3+fQf///z//f59B////P/9/n0H///8/Xz6fQf//AABfPp9B//8AAF8+n0H//wAAVhlVmf7//n+nD6aP//8AAKcPpo////5/MfX//////78x9f//////v0Hj//////+/QuK7nQAAAICj9VuKAAAAgKP1W4r//////39mmv///z//fz6P////P/9/Po////8//38+j////z//fz6P////PzH1//////+/MfX//////7+j9VuKAAAAgKP1W4oAAACApw+mj////n+nD6aP///+f1YZVZn+//5/VhlVmf7//n9B4///////v0Hj//////+/QuK7nQAAAIBC4rudAAAAgP9/Zpr///8//39mmv///z8=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vhsty"]
+shading_mode = 2
+albedo_color = Color(0.98309034, 0.8852064, 0.36177263, 1)
+emission_enabled = true
+emission = Color(0.93883145, 0.71792656, 0.16170767, 1)
+disable_receive_shadows = true
+
+[node name="CandleFlame" type="Node3D"]
+script = ExtResource("1_gcg6d")
+
+[node name="CandleMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("ArrayMesh_f8gls")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_vhsty")
+
+[node name="CandleLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018336982, 0)
+light_color = Color(0.98821205, 0.8417089, 0.4649353, 1)
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_normal_bias = 0.5
+shadow_blur = 5.0
+omni_range = 10.0

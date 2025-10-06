@@ -8,7 +8,7 @@ emission_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrlqn"]
 resource_name = "Grass"
-albedo_color = Color(0.406649, 0.873327, 0.351924, 1)
+albedo_color = Color(0.65250003, 0.87, 0.348, 1)
 roughness = 0.964
 emission_enabled = true
 

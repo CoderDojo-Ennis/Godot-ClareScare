@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bwn2lacclg0u8"
-path="res://.godot/imported/Boss.glb-ea98d808b9806055e7369b36fc2c19eb.scn"
+uid="uid://c020chw4nwup6"
+path="res://.godot/imported/Pumpkins.glb-280639d08daf046903e040d295e863b4.scn"
 
 [deps]
 
-source_file="res://Models/Boss/Boss.glb"
-dest_files=["res://.godot/imported/Boss.glb-ea98d808b9806055e7369b36fc2c19eb.scn"]
+source_file="res://Models/Pumpkins.glb"
+dest_files=["res://.godot/imported/Pumpkins.glb-280639d08daf046903e040d295e863b4.scn"]
 
 [params]
 
@@ -38,5 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-gltf/naming_version=1
+gltf/naming_version=2
 gltf/embedded_image_handling=1

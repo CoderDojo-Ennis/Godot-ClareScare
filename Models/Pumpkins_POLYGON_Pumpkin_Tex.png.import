@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rlrg6gxbyev5"
-path.s3tc="res://.godot/imported/Boss_Boss_diffuse.png-9b13c6c5d7c4266bed1cb483440acc98.s3tc.ctex"
+uid="uid://dkx38pt2k1qlw"
+path.s3tc="res://.godot/imported/Pumpkins_POLYGON_Pumpkin_Tex.png-711ce874009039fb6e6a5e00c9c649f6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "2ea0bc634b4764ff127918f352b3c222"
+}
 
 [deps]
 
-source_file="res://Models/Boss/Boss_Boss_diffuse.png"
-dest_files=["res://.godot/imported/Boss_Boss_diffuse.png-9b13c6c5d7c4266bed1cb483440acc98.s3tc.ctex"]
+source_file="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png"
+dest_files=["res://.godot/imported/Pumpkins_POLYGON_Pumpkin_Tex.png-711ce874009039fb6e6a5e00c9c649f6.s3tc.ctex"]
 
 [params]
 
