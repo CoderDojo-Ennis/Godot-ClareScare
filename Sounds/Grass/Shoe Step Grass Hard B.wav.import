@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b3pvg1kdkeq0g"
+path="res://.godot/imported/Shoe Step Grass Hard B.wav-f2d76ab9c9ae73b706d33dde01d30b72.sample"
+
+[deps]
+
+source_file="res://Sounds/Grass/Shoe Step Grass Hard B.wav"
+dest_files=["res://.godot/imported/Shoe Step Grass Hard B.wav-f2d76ab9c9ae73b706d33dde01d30b72.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

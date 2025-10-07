@@ -1,6 +1,8 @@
 class_name Claire
 extends CharacterBody3D
 
+@onready var FootstepSound: AudioStreamPlayer = $Sounds/ShoeStepGrassMediumA
+
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera: Camera3rdPerson = $CameraPivot
@@ -125,3 +127,40 @@ func blend_down_up(_delta: float) -> void:
 		0.0,
 		1.0)
 	animation_tree.set("parameters/BlendDownUp/blend_amount", vertical_speed)
+
+## Sound effects
+func Footstep() -> void:
+	FootstepSound.play()
+	FootstepSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func Landed() -> void:
+# 	$LandSound.play()
+# 	$LandSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func PunchHit() -> void:
+# 	$PunchSound.play()
+# 	$PunchSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func JumpSound() -> void:
+# 	$JumpSound.play()
+# 	$JumpSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func HurtSound() -> void:
+# 	$HurtSound.play()
+# 	$HurtSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func DeathSound() -> void:
+# 	$DeathSound.play()
+# 	$DeathSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func RespawnSound() -> void:
+# 	$RespawnSound.play()
+# 	$RespawnSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func PickupSound() -> void:
+# 	$PickupSound.play()
+# 	$PickupSound.pitch_scale = randf_range(0.8, 1.2)
+
+# func ThrowSound() -> void:
+# 	$ThrowSound.play()
+# 	$ThrowSound.pitch_scale = randf_range(0.8, 1.2)

@@ -15,9 +15,10 @@ run/main_scene="uid://dwnkqepxve7i4"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://x4gm6kmxmim2"
 
-[editor_plugins]
+[display]
 
-enabled=PackedStringArray()
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 
