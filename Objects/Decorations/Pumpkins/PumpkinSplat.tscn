@@ -1,13 +1,14 @@
-[gd_scene load_steps=8 format=4 uid="uid://bfmx25s0lcsmo"]
+[gd_scene load_steps=8 format=4 uid="uid://b6ykit1ucgqlv"]
 
-[ext_resource type="Script" uid="uid://dbj3cfkr2kgd4" path="res://Objects/Decorations/Pumpkins/Pumpkin.gd" id="1_kixi5"]
-[ext_resource type="Texture2D" uid="uid://dkx38pt2k1qlw" path="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png" id="1_vqxea"]
-[ext_resource type="PackedScene" uid="uid://uqvheb1wthfl" path="res://Objects/Decorations/CandleFlame/CandleFlame.tscn" id="2_5pj5q"]
+[ext_resource type="Script" uid="uid://dlej42gy1ajh" path="res://Objects/Decorations/Pumpkins/PumpkinSplat.gd" id="1_sqeb3"]
+[ext_resource type="Texture2D" uid="uid://dkx38pt2k1qlw" path="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png" id="2_q5qqd"]
+[ext_resource type="PackedScene" uid="uid://uqvheb1wthfl" path="res://Objects/Decorations/CandleFlame/CandleFlame.tscn" id="3_mlyvb"]
+[ext_resource type="AudioStream" uid="uid://bnj0lvajipfg4" path="res://Sounds/Pumpkins/Little Splatter.ogg" id="4_a8j7k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cymsh"]
 resource_name = "Pumpkin.001"
 cull_mode = 2
-albedo_texture = ExtResource("1_vqxea")
+albedo_texture = ExtResource("2_q5qqd")
 metallic = 0.5
 roughness = 0.8532867
 
@@ -43,23 +44,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8dxne")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_5pj5q"]
-margin = 0.0
-radius = 0.24
-
-[node name="Pumpkin1" type="Node3D" groups=["Stompable"]]
-script = ExtResource("1_kixi5")
+[node name="PumpkinSplat" type="Node3D" groups=["Stompable"]]
+script = ExtResource("1_sqeb3")
 
 [node name="SM_Prop_Pumpkin_Lanturn_01" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, -0.034971625)
+transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, -0.005, 0, 0.01, -2.1855694e-10, 0, 0, -0.034971625)
 mesh = SubResource("ArrayMesh_qjlso")
 skeleton = NodePath("")
 
-[node name="CandleFlame" parent="." instance=ExtResource("2_5pj5q")]
+[node name="CandleFlame" parent="." instance=ExtResource("3_mlyvb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15764123, 0)
 
-[node name="PumpinRigidbody" type="RigidBody3D" parent="." groups=["Pumpkins"]]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PumpinRigidbody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2211402, 0)
-shape = SubResource("SphereShape3D_5pj5q")
+[node name="SplatSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_a8j7k")
+autoplay = true

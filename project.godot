@@ -20,6 +20,11 @@ config/icon="uid://x4gm6kmxmim2"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[global_group]
+
+Pumpkins=""
+Stompable=""
+
 [input]
 
 move_left={

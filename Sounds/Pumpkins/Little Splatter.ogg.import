@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bnj0lvajipfg4"
+path="res://.godot/imported/Little Splatter.ogg-ded12c963213f4b15c1370a53e9d3ff1.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Pumpkins/Little Splatter.ogg"
+dest_files=["res://.godot/imported/Little Splatter.ogg-ded12c963213f4b15c1370a53e9d3ff1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

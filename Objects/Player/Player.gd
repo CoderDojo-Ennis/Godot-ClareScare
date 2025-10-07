@@ -2,6 +2,7 @@ class_name Claire
 extends CharacterBody3D
 
 @onready var FootstepSound: AudioStreamPlayer = $Sounds/ShoeStepGrassMediumA
+@onready var JumpLandSound: AudioStreamPlayer = $Sounds/LandStepGrassB
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -12,6 +13,8 @@ extends CharacterBody3D
 @export var walk_speed: float = 1.0
 @export var run_speed: float = 4.0
 @export var jump_velocity: float = 15.0
+
+var falling: bool = false
 
 ## How long has the punch animation been playing
 var punch_time: float = 0.0
@@ -25,37 +28,8 @@ var fall_jump: float = 0.0
 var ground_air: float = 0.0
 
 ## Happens about 30 times a second
-# func _physics_process(delta: float) -> void:
-# 	var SPEED: float = run_speed
-
-# 	# Add the gravity.
-# 	if not is_on_floor():
-# 		velocity += get_gravity() * delta
-
-# 	# Handle jump.
-# 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-# 		velocity.y = jump_velocity
-
-# 	# Get the input direction and handle the movement/deceleration.
-# 	# As good practice, you should replace UI actions with custom gameplay actions.
-# 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-# 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-# 	# print(camera.camera_global_rotation.y)
-# 	# direction = direction.rotated(Vector3.UP, camera.camera_global_rotation.y)
-
-# 	if direction:
-# 		velocity.x = direction.x * SPEED
-# 		velocity.z = direction.z * SPEED
-# 	else:
-# 		velocity.x = move_toward(velocity.x, 0, SPEED)
-# 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-# 	move_and_slide()
-
 func _physics_process(delta: float) -> void:
 	var move_dir: Vector3 = transform.basis.z
-	# camera.camera_transform.basis.z
 	var speed: float = 0.0
 
 	if Input.is_action_pressed("move_left"):
@@ -93,6 +67,11 @@ func _physics_process(delta: float) -> void:
 
 	if !is_on_floor():
 		velocity.y += gravity * delta
+		falling = true
+	else:
+		if falling == true:
+			falling = false
+			Landed()
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
@@ -133,9 +112,19 @@ func Footstep() -> void:
 	FootstepSound.play()
 	FootstepSound.pitch_scale = randf_range(0.8, 1.2)
 
-# func Landed() -> void:
-# 	$LandSound.play()
-# 	$LandSound.pitch_scale = randf_range(0.8, 1.2)
+func Landed() -> void:
+	JumpLandSound.play()
+	JumpLandSound.pitch_scale = randf_range(0.8, 1.2)
+
+	# Check for pumpkins in stomp area
+	var stomp_area = $StompArea  # Adjust path if needed
+	if stomp_area:
+		var overlapping_bodies = stomp_area.get_overlapping_bodies()
+		for body in overlapping_bodies:
+			var parent = body.get_parent()
+			if parent and parent.is_in_group("Stompable"):
+				print("Stomped on: ", parent.name)
+				parent.call_deferred("stomped")
 
 # func PunchHit() -> void:
 # 	$PunchSound.play()
@@ -164,3 +153,7 @@ func Footstep() -> void:
 # func ThrowSound() -> void:
 # 	$ThrowSound.play()
 # 	$ThrowSound.pitch_scale = randf_range(0.8, 1.2)
+
+# Removed - now handling pumpkin stomping in Landed() function
+# func _on_stomp_area_body_entered(body: Node3D) -> void:
+# 	print(body.is_in_group("Pumpkins"))

@@ -237,6 +237,9 @@ transform = Transform3D(-0.5035219, -1.6298145e-07, -49.997463, -20.731228, 45.4
 [node name="Pumpkin1" parent="Baddies" instance=ExtResource("12_uadih")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7660255, 0.16571629, 1.4507158)
 
+[node name="Pumpkin2" parent="Baddies" instance=ExtResource("12_uadih")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7660255, 2.0362537, 10.18315)
+
 [node name="Sounds" type="Node" parent="."]
 
 [node name="Music" type="AudioStreamPlayer" parent="Sounds"]
