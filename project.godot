@@ -15,15 +15,30 @@ run/main_scene="uid://dwnkqepxve7i4"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://x4gm6kmxmim2"
 
+[autoload]
+
+Signals="*res://Globals/Signals.gd"
+GameManager="*res://Globals/GameManager.gd"
+Utils="*res://Globals/Utils.gd"
+
 [display]
 
+window/size/viewport_width=500
+window/size/viewport_height=300
+window/size/initial_position_type=0
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor]
+
+reload_files_on_external_change=true
 
 [global_group]
 
 Pumpkins=""
 Stompable=""
+Enemies=""
+Players=""
 
 [input]
 

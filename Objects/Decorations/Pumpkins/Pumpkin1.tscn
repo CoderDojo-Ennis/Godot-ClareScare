@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dkx38pt2k1qlw" path="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png" id="1_vqxea"]
 [ext_resource type="PackedScene" uid="uid://uqvheb1wthfl" path="res://Objects/Decorations/CandleFlame/CandleFlame.tscn" id="2_5pj5q"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_5pj5q"]
+margin = 0.0
+radius = 0.24
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cymsh"]
 resource_name = "Pumpkin.001"
 cull_mode = 2
@@ -43,23 +47,22 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8dxne")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_5pj5q"]
-margin = 0.0
-radius = 0.24
-
-[node name="Pumpkin1" type="Node3D" groups=["Stompable"]]
+[node name="PumpinRigidbody" type="RigidBody3D" groups=["Enemies", "Pumpkins", "Stompable"]]
+linear_damp = 2.0
+angular_damp = 5.0
 script = ExtResource("1_kixi5")
+wander_speed = 6.0
+chase_speed = 8.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2211402, 0)
+shape = SubResource("SphereShape3D_5pj5q")
+debug_color = Color(0.85, 0.102000006, 0.85, 0.8980392)
 
 [node name="SM_Prop_Pumpkin_Lanturn_01" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, -0.034971625)
+transform = Transform3D(-4.3711387e-10, 0.01, -4.3711387e-10, 0, -4.3711387e-10, -0.01, -0.01, -4.3711387e-10, 1.9106855e-17, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qjlso")
 skeleton = NodePath("")
 
-[node name="CandleFlame" parent="." instance=ExtResource("2_5pj5q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15764123, 0)
-
-[node name="PumpinRigidbody" type="RigidBody3D" parent="." groups=["Pumpkins"]]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PumpinRigidbody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2211402, 0)
-shape = SubResource("SphereShape3D_5pj5q")
+[node name="CandleFlame" parent="SM_Prop_Pumpkin_Lanturn_01" instance=ExtResource("2_5pj5q")]
+transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 3.4971623, -15.764123)

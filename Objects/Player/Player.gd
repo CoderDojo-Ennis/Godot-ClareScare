@@ -15,6 +15,11 @@ extends CharacterBody3D
 @export var jump_velocity: float = 15.0
 
 var falling: bool = false
+var jumped: bool = false  # Track if player actually jumped
+
+# Buffer for collision detection - track bodies that recently entered StompArea
+var recent_stomp_bodies: Array[Node3D] = []
+var stomp_buffer_time: float = 1.0  # Keep bodies in buffer for 1 second
 
 ## How long has the punch animation been playing
 var punch_time: float = 0.0
@@ -26,6 +31,30 @@ var blend_speed: float = 5.0
 var idle_walk: float = 0.0
 var fall_jump: float = 0.0
 var ground_air: float = 0.0
+
+func _enter_tree() -> void:
+	add_to_group("Players")
+
+func _ready() -> void:
+	GameManager.Player = self
+
+	# Initialize velocity to prevent sliding at startup
+	velocity = Vector3.ZERO
+
+
+	# Enable collision shape visualization for debugging
+	# Multiple methods to ensure collision shapes are visible
+	get_tree().debug_collisions_hint = true
+	get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED  # Reset first
+	# Note: In Godot 4, collision shapes are typically enabled via:
+	# 1. Debug menu -> Visible Collision Shapes (most reliable)
+	# 2. get_tree().debug_collisions_hint = true (what we're using)
+	print("Collision debug enabled: ", get_tree().debug_collisions_hint)
+
+## Handle visual updates - runs every frame
+func _process(_delta: float) -> void:
+	# Non-physics visual updates can go here if needed
+	pass
 
 ## Happens about 30 times a second
 func _physics_process(delta: float) -> void:
@@ -56,11 +85,6 @@ func _physics_process(delta: float) -> void:
 	if speed != 0:
 		velocity.x = move_dir.x * speed
 		velocity.z = move_dir.z * speed
-
-		# When moving forward, face the same direction as the camera
-		rotation.y = lerp_angle(rotation.y, rotation.y + camera.rotation.y + deg_to_rad(180), 5 * delta)
-		camera.rotation.y = lerp_angle(camera.rotation.y, deg_to_rad(180), 5 * delta)
-
 	else:
 		velocity.x = 0
 		velocity.z = 0
@@ -69,14 +93,27 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 		falling = true
 	else:
-		if falling == true:
+		if falling == true and jumped == true:
+			# Only call Landed() if we were actually jumping, not just falling off small ledges
 			falling = false
+			jumped = false
 			Landed()
+		elif falling == true:
+			# Reset falling state without calling Landed() for minor terrain variations
+			falling = false
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
+		jumped = true  # Mark that we actually jumped
 
 	move_and_slide()
+
+	# Handle camera rotation when moving - moved to physics process for interpolation
+	if velocity.length() > 0.1:  # Only adjust camera when actually moving
+		# When moving forward, face the same direction as the camera
+		rotation.y = lerp_angle(rotation.y, rotation.y + camera.rotation.y + deg_to_rad(180), 5 * delta)
+		camera.rotation.y = lerp_angle(camera.rotation.y, deg_to_rad(180), 5 * delta)
+
 	blend_idle_walk(delta)
 	blend_land_air(delta)
 	blend_down_up(delta)
@@ -113,20 +150,42 @@ func Footstep() -> void:
 	FootstepSound.pitch_scale = randf_range(0.8, 1.2)
 
 func Landed() -> void:
+	print("Landed")
 	JumpLandSound.play()
 	JumpLandSound.pitch_scale = randf_range(0.8, 1.2)
 
 	# Check for pumpkins in stomp area
-	var stomp_area = $StompArea  # Adjust path if needed
+	var stomp_area = $StompArea
 	if stomp_area:
 		var overlapping_bodies = stomp_area.get_overlapping_bodies()
-		for body in overlapping_bodies:
-			var parent = body.get_parent()
-			if parent and parent.is_in_group("Stompable"):
-				print("Stomped on: ", parent.name)
-				parent.call_deferred("stomped")
+		print("Landed count: ", overlapping_bodies.size())
 
-# func PunchHit() -> void:
+		# Primary method: check overlapping bodies
+		var stomped_something = false
+		for body in overlapping_bodies:
+			print("Checking Stomp on: ", body.name, " (Type: ", body.get_class(), ", Groups: ", body.get_groups(), ")")
+			var stompableThing = Utils.FindParentWithGroup(body, "Stompable")
+			print("  -> Stompable found: ", stompableThing)
+			if stompableThing:
+				print("Stomped on: ", stompableThing.name)
+				stompableThing.call_deferred("stomped")
+				stomped_something = true
+
+		# Buffered collision detection - check bodies that recently entered StompArea
+		# if not stomped_something:
+		# 	print("Checking recent stomp bodies buffer (", recent_stomp_bodies.size(), " bodies)")
+		# 	for body in recent_stomp_bodies:
+		# 		if is_instance_valid(body):  # Make sure body still exists
+		# 			print("Buffered Stomp check: ", body.name, " (Type: ", body.get_class(), ", Groups: ", body.get_groups(), ")")
+		# 			var stompableThing = Utils.FindParentWithGroup(body, "Stompable")
+		# 			if stompableThing:
+		# 				print("Buffered Stomped on: ", stompableThing.name)
+		# 				stompableThing.call_deferred("stomped")
+		# 				stomped_something = true
+		# 				break
+
+		# 	# Clear the buffer after use
+		# 	recent_stomp_bodies.clear()# func PunchHit() -> void:
 # 	$PunchSound.play()
 # 	$PunchSound.pitch_scale = randf_range(0.8, 1.2)
 
@@ -154,6 +213,24 @@ func Landed() -> void:
 # 	$ThrowSound.play()
 # 	$ThrowSound.pitch_scale = randf_range(0.8, 1.2)
 
-# Removed - now handling pumpkin stomping in Landed() function
-# func _on_stomp_area_body_entered(body: Node3D) -> void:
-# 	print(body.is_in_group("Pumpkins"))
+# Helper function to recursively find all physics bodies in the scene
+func _find_physics_bodies_recursive(node: Node, bodies_list: Array) -> void:
+	if node is RigidBody3D or node is CharacterBody3D or node is StaticBody3D:
+		bodies_list.append(node)
+
+	for child in node.get_children():
+		_find_physics_bodies_recursive(child, bodies_list)
+
+# Stomp area signal handlers - buffer system
+func _on_stomp_area_body_entered(body: Node3D) -> void:
+	print(">> Body ENTERED StompArea: ", body.name, " (Type: ", body.get_class(), ", Groups: ", body.get_groups(), ")")
+	# Add to buffer for recent collision tracking
+	# if body not in recent_stomp_bodies:
+		# recent_stomp_bodies.append(body)
+		# print("   Added to stomp buffer. Buffer size: ", recent_stomp_bodies.size())
+
+func _on_stomp_area_body_exited(body: Node3D) -> void:
+	print("<< Body EXITED StompArea: ", body.name)
+	# if body in recent_stomp_bodies:
+	# 	recent_stomp_bodies.erase(body)
+	# 	print("   Removed from stomp buffer. Buffer size: ", recent_stomp_bodies.size())

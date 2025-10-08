@@ -43,6 +43,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	# Update camera properties in physics process to avoid interpolation warnings
 	camera_global_rotation = camera_3d.global_rotation
 	camera_transform = camera_3d.transform

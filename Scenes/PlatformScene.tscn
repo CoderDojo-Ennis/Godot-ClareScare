@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://dwnkqepxve7i4"]
+[gd_scene load_steps=24 format=3 uid="uid://dwnkqepxve7i4"]
 
+[ext_resource type="Script" uid="uid://by2oos010218o" path="res://Scenes/GameLevel.gd" id="1_l7k4w"]
 [ext_resource type="Texture2D" uid="uid://dbwjpypyey14q" path="res://Environment/kloppenheim_02_puresky_4k.hdr" id="1_ypydr"]
 [ext_resource type="PackedScene" uid="uid://dubvv2bhgd11j" path="res://Objects/Decorations/Flag/flag.tscn" id="3_6lune"]
 [ext_resource type="PackedScene" uid="uid://cjjlnh3ncjsxk" path="res://Objects/Platforms/grass_platform.tscn" id="4_b5cse"]
@@ -96,6 +97,7 @@ Vector2i(2, 0): {
 }
 
 [node name="PlatformScene" type="Node3D"]
+script = ExtResource("1_l7k4w")
 
 [node name="Environment" type="Node" parent="."]
 
@@ -158,7 +160,7 @@ transform = Transform3D(6.3860674, 0, -7.6953325, 0, 10, 0, 7.6953325, 0, 6.3860
 transform = Transform3D(7.893852, 0, -7.3256702, 0, 10.769324, 0, 7.3256702, 0, 7.893852, 13.024698, -0.028565466, 1.3663034)
 
 [node name="Tree21" parent="Environment/Decorations" instance=ExtResource("10_r1xip")]
-transform = Transform3D(7.893852, 0, -7.3256702, 0, 10.769324, 0, 7.3256702, 0, 7.893852, 5.905243, -0.028565466, 21.401604)
+transform = Transform3D(7.893852, 0, -7.3256702, 0, 10.769324, 0, 7.3256702, 0, 7.893852, 5.905032, -0.026907027, 21.401203)
 
 [node name="Tree4" parent="Environment/Decorations" instance=ExtResource("10_r1xip")]
 transform = Transform3D(8.329792, 0, -5.533043, 0, 10, 0, 5.533043, 0, 8.329792, 31.896194, -29.67161, 1.3663034)
@@ -227,7 +229,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.755318, 0.13397801, 12.662
 transform = Transform3D(0.9063373, 0, -0.42255497, 0, 1, 0, 0.42255497, 0, 0.9063373, 11.2198715, 0.13397801, 37.181786)
 
 [node name="Player" parent="." instance=ExtResource("11_gpsbu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.637779, 4.900408, 13.524916)
+transform = Transform3D(-0.91082066, 0, 0.4128025, 0, 1, 0, -0.4128025, 0, -0.91082066, -3.6819446, 2.233221, 12.435833)
 
 [node name="Baddies" type="Node" parent="."]
 
@@ -236,6 +238,7 @@ transform = Transform3D(-0.5035219, -1.6298145e-07, -49.997463, -20.731228, 45.4
 
 [node name="Pumpkin1" parent="Baddies" instance=ExtResource("12_uadih")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7660255, 0.16571629, 1.4507158)
+show_debug = false
 
 [node name="Pumpkin2" parent="Baddies" instance=ExtResource("12_uadih")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7660255, 2.0362537, 10.18315)
