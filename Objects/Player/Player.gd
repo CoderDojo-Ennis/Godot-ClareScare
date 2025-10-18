@@ -3,6 +3,9 @@ extends CharacterBody3D
 
 @onready var FootstepSound: AudioStreamPlayer = $Sounds/ShoeStepGrassMediumA
 @onready var JumpLandSound: AudioStreamPlayer = $Sounds/LandStepGrassB
+@onready var girl_eyes_geo: MeshInstance3D = $"Armature/Skeleton3D/Girl_Eyes_Geo"
+
+
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -15,11 +18,12 @@ extends CharacterBody3D
 @export var jump_velocity: float = 15.0
 
 var falling: bool = false
-var jumped: bool = false  # Track if player actually jumped
+var jumped: bool = false # Track if player actually jumped
+var eyes: Vector2i = Vector2i(0, 0) # Current eye texture coordinates
 
 # Buffer for collision detection - track bodies that recently entered StompArea
 var recent_stomp_bodies: Array[Node3D] = []
-var stomp_buffer_time: float = 1.0  # Keep bodies in buffer for 1 second
+var stomp_buffer_time: float = 1.0 # Keep bodies in buffer for 1 second
 
 ## How long has the punch animation been playing
 var punch_time: float = 0.0
@@ -32,6 +36,8 @@ var idle_walk: float = 0.0
 var fall_jump: float = 0.0
 var ground_air: float = 0.0
 
+var eye_material: Material = null
+
 func _enter_tree() -> void:
 	add_to_group("Players")
 
@@ -41,15 +47,35 @@ func _ready() -> void:
 	# Initialize velocity to prevent sliding at startup
 	velocity = Vector3.ZERO
 
-
 	# Enable collision shape visualization for debugging
 	# Multiple methods to ensure collision shapes are visible
 	get_tree().debug_collisions_hint = true
-	get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED  # Reset first
+	get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED # Reset first
 	# Note: In Godot 4, collision shapes are typically enabled via:
 	# 1. Debug menu -> Visible Collision Shapes (most reliable)
 	# 2. get_tree().debug_collisions_hint = true (what we're using)
 	print("Collision debug enabled: ", get_tree().debug_collisions_hint)
+
+	ShowEyes(0,0)
+
+func get_eye_material() -> Material:
+		# Get or create override material
+	var material = eye_material
+	if material == null:
+		material = girl_eyes_geo.get_surface_override_material(0)
+		if material == null:
+			# Create override material from the base material
+			var base_material = girl_eyes_geo.get_surface_override_material(0)
+			if base_material == null:
+				base_material = girl_eyes_geo.mesh.surface_get_material(0)
+			if base_material != null:
+				material = base_material.duplicate()
+				girl_eyes_geo.set_surface_override_material(0, material)
+			else:
+				print("get_eye_material: No base material found on surface 0")
+	eye_material = material
+	return material
+
 
 ## Handle visual updates - runs every frame
 func _process(_delta: float) -> void:
@@ -72,7 +98,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_back"):
 		animation_tree.set("parameters/TimeScaleRun/scale", -2.0)
 		animation_tree.set("parameters/TimeScaleWalk/scale", -2.0)
-		speed = -walk_speed
+		speed = - walk_speed
 
 	if Input.is_action_just_pressed("punch") and punch_time <= 0:
 		animation_tree.set("parameters/PunchOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
@@ -104,12 +130,12 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
-		jumped = true  # Mark that we actually jumped
+		jumped = true # Mark that we actually jumped
 
 	move_and_slide()
 
 	# Handle camera rotation when moving - moved to physics process for interpolation
-	if velocity.length() > 0.1:  # Only adjust camera when actually moving
+	if velocity.length() > 0.1: # Only adjust camera when actually moving
 		# When moving forward, face the same direction as the camera
 		rotation.y = lerp_angle(rotation.y, rotation.y + camera.rotation.y + deg_to_rad(180), 5 * delta)
 		camera.rotation.y = lerp_angle(camera.rotation.y, deg_to_rad(180), 5 * delta)
@@ -148,6 +174,18 @@ func blend_down_up(_delta: float) -> void:
 func Footstep() -> void:
 	FootstepSound.play()
 	FootstepSound.pitch_scale = randf_range(0.8, 1.2)
+
+func ShowEyes(x: int, y: int) -> void:
+	print ("ShowEyes: Setting eyes to (", x, ", ", y, ")")
+	if (x < 0 or x > 2 or y < 0 or y > 9):
+		print("ShowEyes: Invalid eye coordinates (", x, ", ", y, ")")
+		return
+	eyes = Vector2i(x, y)
+	var uvOffset = Vector2(x * 0.2, y * 0.1)
+	get_eye_material().set("uv1_offset", uvOffset)
+
+func GetEyes() -> Vector2i:
+	return eyes
 
 func Landed() -> void:
 	print("Landed")

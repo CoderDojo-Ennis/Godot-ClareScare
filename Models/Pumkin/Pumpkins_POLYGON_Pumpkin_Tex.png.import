@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkx38pt2k1qlw"
-path.s3tc="res://.godot/imported/Pumpkins_POLYGON_Pumpkin_Tex.png-711ce874009039fb6e6a5e00c9c649f6.s3tc.ctex"
+path.s3tc="res://.godot/imported/Pumpkins_POLYGON_Pumpkin_Tex.png-17c4f0918d7c0ace2e9d25db3e68eef0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png"
-dest_files=["res://.godot/imported/Pumpkins_POLYGON_Pumpkin_Tex.png-711ce874009039fb6e6a5e00c9c649f6.s3tc.ctex"]
+source_file="res://Models/Pumkin/Pumpkins_POLYGON_Pumpkin_Tex.png"
+dest_files=["res://.godot/imported/Pumpkins_POLYGON_Pumpkin_Tex.png-17c4f0918d7c0ace2e9d25db3e68eef0.s3tc.ctex"]
 
 [params]
 

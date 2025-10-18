@@ -1,9 +1,9 @@
 extends Timer
 
-@onready var girl_eyes_geo: MeshInstance3D = $"../Armature/Skeleton3D/Girl_Eyes_Geo"
+@onready var player: Claire = get_parent() as Claire
 
 # How quickly a blink happens
-@export var blink_speed_seconds: float = 0.1
+@export var blink_speed_seconds: float = 0.2
 
 # Range of time between blinks
 @export_group("Blink Rate")
@@ -12,6 +12,7 @@ extends Timer
 
 # How long have I been blinking
 var blink_time: float = 0.0
+var previous_eyes: Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
 	pick_random_blink_time()
@@ -19,14 +20,18 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if blink_time > 0:
 		blink_time -= delta
-	else :
-		girl_eyes_geo.visible = true
+		if (blink_time <= 0):
+			# End blink
+			if previous_eyes != Vector2i.ZERO:
+				player.ShowEyes(previous_eyes.x, previous_eyes.y)
+				previous_eyes = Vector2i.ZERO
 
 func _on_timeout() -> void:
 	blink_now()
 
 func blink_now() -> void:
-	girl_eyes_geo.visible = false
+	previous_eyes = player.GetEyes()
+	player.ShowEyes(1, 8)
 	blink_time = blink_speed_seconds
 	pick_random_blink_time()
 

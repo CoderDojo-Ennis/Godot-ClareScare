@@ -41,5 +41,13 @@
 		"titleBar.activeForeground": "#e7e7e7",
 		"titleBar.inactiveBackground": "#88000099",
 		"titleBar.inactiveForeground": "#e7e7e799"
-	}
+	},
+	"cSpell.words": [
+		"elif",
+		"lerp",
+		"onready",
+		"randf",
+		"respawn",
+		"stompable"
+	]
 }

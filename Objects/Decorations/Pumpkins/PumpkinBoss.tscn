@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://c5qarbg8tj5qt"]
 
-[ext_resource type="Texture2D" uid="uid://dkx38pt2k1qlw" path="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png" id="1_xren3"]
+[ext_resource type="Texture2D" uid="uid://dkx38pt2k1qlw" path="res://Models/Pumkin/Pumpkins_POLYGON_Pumpkin_Tex.png" id="1_xren3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cymsh"]
 resource_name = "Pumpkin.001"

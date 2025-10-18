@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://bfmx25s0lcsmo"]
 
 [ext_resource type="Script" uid="uid://dbj3cfkr2kgd4" path="res://Objects/Decorations/Pumpkins/Pumpkin.gd" id="1_kixi5"]
-[ext_resource type="Texture2D" uid="uid://dkx38pt2k1qlw" path="res://Models/Pumpkins_POLYGON_Pumpkin_Tex.png" id="1_vqxea"]
+[ext_resource type="Texture2D" uid="uid://hmqgx0e6sssl" path="res://Models/Pumkin/Pumpkins_POLYGON_Pumpkin_Tex.png" id="1_vqxea"]
 [ext_resource type="PackedScene" uid="uid://uqvheb1wthfl" path="res://Objects/Decorations/CandleFlame/CandleFlame.tscn" id="2_5pj5q"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5pj5q"]
