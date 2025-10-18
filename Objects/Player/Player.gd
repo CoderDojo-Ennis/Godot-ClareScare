@@ -5,8 +5,6 @@ extends CharacterBody3D
 @onready var JumpLandSound: AudioStreamPlayer = $Sounds/LandStepGrassB
 @onready var girl_eyes_geo: MeshInstance3D = $"Armature/Skeleton3D/Girl_Eyes_Geo"
 
-
-
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera: Camera3rdPerson = $CameraPivot
@@ -56,7 +54,7 @@ func _ready() -> void:
 	# 2. get_tree().debug_collisions_hint = true (what we're using)
 	print("Collision debug enabled: ", get_tree().debug_collisions_hint)
 
-	ShowEyes(0,0)
+	SetEyeExpression(EyeExpressions.EyeType.NORMAL)
 
 func get_eye_material() -> Material:
 		# Get or create override material
@@ -184,8 +182,15 @@ func ShowEyes(x: int, y: int) -> void:
 	var uvOffset = Vector2(x * 0.2, y * 0.1)
 	get_eye_material().set("uv1_offset", uvOffset)
 
-func GetEyes() -> Vector2i:
-	return eyes
+## Set eye expression using the EyeExpressions enum - easier to use!
+func SetEyeExpression(expression: EyeExpressions.EyeType) -> void:
+	var coords = EyeExpressions.get_coordinates(expression)
+	ShowEyes(coords.x, coords.y)
+	print("SetEyeExpression: Set to ", EyeExpressions.get_expression_name(expression), " (", coords.x, ", ", coords.y, ")")
+
+## Get the current eye expression as an enum (if it matches a known expression)
+func GetCurrentEyeExpression() -> EyeExpressions.EyeType:
+	return EyeExpressions.get_expression_from_coordinates(eyes)
 
 func Landed() -> void:
 	print("Landed")
